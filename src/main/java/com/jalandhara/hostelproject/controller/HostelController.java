@@ -4,12 +4,15 @@ import com.jalandhara.hostelproject.exception.ResourceNotFoundException;
 import com.jalandhara.hostelproject.requestBean.*;
 import com.jalandhara.hostelproject.responseBean.*;
 import com.jalandhara.hostelproject.service.HostelService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springdoc.core.properties.SwaggerUiConfigProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -94,14 +97,15 @@ public class HostelController {
     }
 
     // Get Concept
-    @GetMapping("/{type}")
+    @GetMapping("/fetch/{type}")
     public ResponseEntity<?> getAll(
             @PathVariable String type,
             @RequestParam int page,
-            @RequestParam int size,
-            @RequestParam(defaultValue = "name") String sortBy) {
+            @RequestParam int size
+            //,@RequestParam(defaultValue = "name") String sortBy
+    ) {
         try {
-            Page<?> pageResult = hostelService.getAll(type, page, size, sortBy);
+            Page<?> pageResult = hostelService.getAll(type, page, size);
             Map<String, Object> response = new HashMap<>();
             response.put("content", pageResult.getContent());
             response.put("currentPage", pageResult.getNumber());
@@ -125,7 +129,7 @@ public class HostelController {
     }
 
     // Get by ID
-    @GetMapping("/{type}/{id}")
+    @GetMapping("/fetch/{type}/{id}")
     public ResponseEntity<?> getById(@PathVariable UUID id, @PathVariable String type) {
         try {
             return ResponseEntity.ok(hostelService.getById(id, type));
@@ -138,7 +142,7 @@ public class HostelController {
     }
 
     // Delete by ID
-    @DeleteMapping("/{type}/{id}")
+    @DeleteMapping("/remove/{type}/{id}")
     public ResponseEntity<?> deleteById(@PathVariable UUID id, @PathVariable String type) {
         try {
             return ResponseEntity.ok(hostelService.deleteById(id, type));
@@ -233,4 +237,5 @@ public class HostelController {
             ));
         }
     }
+
 }

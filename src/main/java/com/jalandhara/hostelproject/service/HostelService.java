@@ -194,8 +194,8 @@ public class HostelService {
                 .build();
     }
 
-    public Page<?> getAll(String type, int page, int size, String sortBy) {
-        Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy));
+    public Page<?> getAll(String type, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
         return switch (type.toLowerCase()){
             case "person" -> personRepo.findAll(pageable).map(personMapper::toResponse);
             case "room" -> roomRepo.findAll(pageable).map(roomMapper::toResponse);
