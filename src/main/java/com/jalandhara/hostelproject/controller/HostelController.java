@@ -4,15 +4,12 @@ import com.jalandhara.hostelproject.exception.ResourceNotFoundException;
 import com.jalandhara.hostelproject.requestBean.*;
 import com.jalandhara.hostelproject.responseBean.*;
 import com.jalandhara.hostelproject.service.HostelService;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springdoc.core.properties.SwaggerUiConfigProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
